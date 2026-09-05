@@ -73,11 +73,11 @@ The app runs directly on a self-managed IONOS VPS (Ubuntu) — no Docker, no man
    sudo systemctl enable --now xbmediation
    ```
 6. Wire up nginx: `nginx/xbmediation.conf` → `/etc/nginx/sites-available/` → symlink into `sites-enabled` → `nginx -t && systemctl reload nginx`. Then enable HTTPS: `sudo certbot --nginx -d xb-mediation.de -d www.xb-mediation.de`.
-7. Create the Basic Auth password file for `/admin` (see `nginx/xbmediation.conf`'s comments — the `location /admin` block needs to exist in the *live* nginx config, which by this point has been rewritten by certbot into a separate `listen 443 ssl` server block):
+7. Protect `/admin` with HTTP Basic Auth. `deploy/setup-admin-auth.sh` does this safely — it creates the password file and inserts the `location /admin` block into whatever certbot has already rewritten the live config to (rather than overwriting it), backing up the file first and only reloading nginx if `nginx -t` passes:
    ```bash
-   sudo apt install -y apache2-utils
-   sudo htpasswd -c /etc/nginx/.htpasswd <username>
+   sudo deploy/setup-admin-auth.sh <username>
    ```
+   It'll prompt you for a password for `<username>`. Re-running it later is safe (it skips steps that are already done); to add another user or change a password afterward, run `sudo htpasswd /etc/nginx/.htpasswd <username>` directly.
 
 **Subsequent deploys:** run `deploy/deploy.sh` on the VPS (pulls, installs, migrates, rebuilds, restarts the service).
 
