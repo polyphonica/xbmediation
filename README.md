@@ -82,3 +82,8 @@ The app runs directly on a self-managed IONOS VPS (Ubuntu) — no Docker, no man
 **Subsequent deploys:** run `deploy/deploy.sh` on the VPS (pulls, installs, migrates, rebuilds, restarts the service).
 
 See `.env.example` for the environment variables the app expects.
+
+## Backlog (not urgent)
+
+- **Admin logout.** HTTP Basic Auth (used for `/admin`) has no logout mechanism in the HTTP protocol itself — once a browser caches the credentials, it keeps resending them automatically, and there's no reliable server-side way to force a "logout" across browsers. A real logout button requires switching `/admin` to app-level authentication (a login page, a signed session cookie, and a logout endpoint that clears it) instead of nginx Basic Auth.
+- **SEO follow-ups** beyond the JSON-LD already shipped: Open Graph/Twitter card image for link previews; redirect `www.xb-mediation.de` → `xb-mediation.de` (or vice versa) in nginx so both hostnames don't serve identical content as far as search engines are concerned.
