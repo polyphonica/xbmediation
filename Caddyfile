@@ -1,0 +1,8 @@
+# Before a domain is registered: replace with the VPS's public IP and Caddy
+# serves plain HTTP (Let's Encrypt needs a resolvable domain for TLS).
+# Once a domain points at the server, swap the site address below and Caddy
+# automatically requests and renews the certificate.
+xb-mediation.de, www.xb-mediation.de {
+	reverse_proxy app:3000
+	encode gzip
+}

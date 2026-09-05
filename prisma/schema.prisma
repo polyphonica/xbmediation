@@ -1,0 +1,36 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum MediationArea {
+  FAMILIE
+  WIRTSCHAFT
+  UNSICHER
+}
+
+enum LeadStatus {
+  NEU
+  KONTAKTIERT
+  ABGESCHLOSSEN
+  ARCHIVIERT
+}
+
+model Lead {
+  id        String         @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  message   String         @db.Text
+  area      MediationArea?
+  status    LeadStatus     @default(NEU)
+  source    String?        @default("kontaktformular")
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+
+  @@index([createdAt])
+}

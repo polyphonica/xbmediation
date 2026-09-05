@@ -1,0 +1,26 @@
+# Applied automatically by `docker compose up` when this file sits next to
+# docker-compose.yml — gives local dev the same two services (app, db) as
+# the IONOS deployment, but with hot reload and a Postgres port reachable
+# from the host for `psql`/Prisma Studio. The `caddy` service is skipped
+# locally since there's no domain to issue a certificate for yet.
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    environment:
+      NEXT_PUBLIC_SITE_URL: http://localhost:3000
+    command: npm run dev
+
+  db:
+    ports:
+      - "127.0.0.1:5432:5432"
+
+  caddy:
+    profiles: ["prod-only"]
