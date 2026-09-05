@@ -1,14 +1,14 @@
 import type { HeroContent } from "@/types/content";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { HeroArt } from "@/components/ui/HeroArt";
+import { HeroImage } from "@/components/ui/HeroImage";
 
 export function Hero({ content }: { content: HeroContent }) {
   return (
     <section className="relative overflow-hidden pt-16 pb-20 sm:pt-24 sm:pb-28">
       {/* Desktop: image bleeds full-height to the page edge, like a background photo. */}
       <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[44%] lg:block">
-        <HeroArt placeholder={content.image.placeholder} alt={content.image.alt} bleed />
+        <HeroImage image={content.image} bleed />
       </div>
 
       <Container className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
@@ -44,7 +44,7 @@ export function Hero({ content }: { content: HeroContent }) {
 
         {/* Mobile/tablet: contained image, stacked below the text. */}
         <div className="animate-fade-up lg:hidden" style={{ animationDelay: "120ms" }}>
-          <HeroArt placeholder={content.image.placeholder} alt={content.image.alt} />
+          <HeroImage image={content.image} />
         </div>
       </Container>
     </section>

@@ -12,6 +12,9 @@ export type HeroContent = {
   image: {
     placeholder: "portrait" | "lake" | "office" | "stones";
     alt: string;
+    /** Real photo path under /public — takes precedence over the abstract
+     * placeholder art when set. */
+    src?: string;
   };
 };
 
