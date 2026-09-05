@@ -55,15 +55,15 @@ The app runs directly on a self-managed IONOS VPS (Ubuntu) — no Docker, no man
    CREATE USER xbmediation WITH PASSWORD 'a-real-password';
    CREATE DATABASE xbmediation OWNER xbmediation;
    ```
-2. Create a dedicated system user to run the app, and clone the repo into its home directory (matching `deploy/xbmediation.service`'s `WorkingDirectory=/opt/xbmediation`):
+2. Create a dedicated system user to run the app, and clone the repo into its home directory (matching `deploy/xbmediation.service`'s `WorkingDirectory=/var/www/xbmediation`):
    ```bash
-   sudo useradd --system --create-home --home-dir /opt/xbmediation --shell /usr/sbin/nologin xbmediation
-   sudo -u xbmediation git clone https://github.com/polyphonica/xbmediation.git /opt/xbmediation
+   sudo useradd --system --create-home --home-dir /var/www/xbmediation --shell /usr/sbin/nologin xbmediation
+   sudo -u xbmediation git clone https://github.com/polyphonica/xbmediation.git /var/www/xbmediation
    ```
-3. In `/opt/xbmediation`, copy `.env.example` to `.env` and fill in the real `DATABASE_URL` (matching the password from step 1) and `NEXT_PUBLIC_SITE_URL="https://xb-mediation.de"`.
+3. In `/var/www/xbmediation`, copy `.env.example` to `.env` and fill in the real `DATABASE_URL` (matching the password from step 1) and `NEXT_PUBLIC_SITE_URL="https://xb-mediation.de"`.
 4. As the `xbmediation` user, install dependencies, run migrations, and build:
    ```bash
-   sudo -u xbmediation bash -c 'cd /opt/xbmediation && npm ci && npx prisma migrate deploy && npm run build'
+   sudo -u xbmediation bash -c 'cd /var/www/xbmediation && npm ci && npx prisma migrate deploy && npm run build'
    ```
 5. Install and enable the systemd service:
    ```bash

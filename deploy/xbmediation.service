@@ -5,8 +5,8 @@ After=network.target postgresql.service
 [Service]
 Type=simple
 User=xbmediation
-WorkingDirectory=/opt/xbmediation
-EnvironmentFile=/opt/xbmediation/.env
+WorkingDirectory=/var/www/xbmediation
+EnvironmentFile=/var/www/xbmediation/.env
 ExecStart=/usr/bin/npm run start
 Restart=on-failure
 RestartSec=5

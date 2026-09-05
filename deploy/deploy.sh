@@ -8,7 +8,7 @@
 # service restart needs root.
 set -euo pipefail
 
-APP_DIR=/opt/xbmediation
+APP_DIR=/var/www/xbmediation
 
 sudo -u xbmediation bash -c "
   set -euo pipefail
