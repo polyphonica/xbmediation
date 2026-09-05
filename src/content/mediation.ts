@@ -20,7 +20,8 @@ export const hero: HeroContent = {
     "Mediation ist ein freiwilliger, vertraulicher und strukturierter Prozess. Ein neutraler Mediator unterstützt die Beteiligten dabei, ihre unterschiedlichen Sichtweisen, Interessen und Bedürfnisse zu besprechen und miteinander eine Lösung zu erarbeiten.",
   image: {
     placeholder: "stones",
-    alt: "Sorgfältig geharkter Zen-Garten als Sinnbild für Klarheit und Ruhe in der Mediation",
+    src: "/images/hero-mediation.jpg",
+    alt: "Hölzerner Steg durch die Dünen zum Meer bei Sonnenuntergang als Sinnbild für den gemeinsamen Weg in der Mediation",
   },
 };
 
