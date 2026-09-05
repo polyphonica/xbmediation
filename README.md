@@ -49,7 +49,7 @@ The app runs directly on a self-managed IONOS VPS (Ubuntu) — no Docker, no man
 
 **One-time server setup:**
 
-1. Install Postgres natively (`sudo apt install postgresql`), then create the app's role and database:
+1. Postgres is already installed on this VPS (shared with the other apps) — just create this app's own role and database in it:
    ```sql
    sudo -u postgres psql
    CREATE USER xbmediation WITH PASSWORD 'a-real-password';
