@@ -9,11 +9,11 @@ All site content is German. See the seven public pages under `src/app/` (Startse
 - **Framework:** Next.js (App Router) + TypeScript + Tailwind CSS v4
 - **Database:** PostgreSQL via Prisma (pinned to the stable 6.x line — Prisma's `latest` tag currently points at an unstable 8.0 release, and 7.x dropped the classic connection-string config for a driver-adapter setup that isn't worth the churn here)
 - **Content:** authored in code, not a CMS — see `src/content/*.ts`, one file per page, imported by the matching `src/app/**/page.tsx`. Shared values (nav, footer, contact details) live in `src/content/site.ts`
-- **Hosting:** self-hosted on an IONOS VPS via Docker Compose, proxied by the server's existing host-installed nginx (see `docker-compose.yml`, `Dockerfile`, `nginx/xbmediation.conf`, `deploy/deploy.sh`) — no managed platform (e.g. Vercel) in the loop
+- **Hosting:** self-hosted on an IONOS VPS, running natively (no Docker) — Postgres and the Next.js app both installed directly on the server, matching how the other apps on that box already run, proxied by its existing host nginx (see `deploy/xbmediation.service`, `nginx/xbmediation.conf`, `deploy/deploy.sh`) — no managed platform (e.g. Vercel) in the loop
 
 ## Local development
 
-Requires Node.js and a local Postgres instance (or Docker, see below).
+Requires Node.js and a local Postgres instance.
 
 ```bash
 npm install
@@ -23,12 +23,6 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
-
-Alternatively, run the whole stack (app + Postgres) via Docker Compose, which mirrors the production setup:
-
-```bash
-docker compose up
-```
 
 ## Editing content
 
@@ -46,16 +40,38 @@ Several pieces of real business information are still placeholders, marked `TODO
 - `src/content/vsbg.ts` — the practice's actual legal stance on consumer dispute resolution (confirm with counsel)
 - `src/content/ueber-mich.ts` — exact wording of professional background, training dates, and volunteer roles
 - Real stock/licensed photography to replace the placeholder hero art
-- A registered domain (site currently assumes `xb-mediation.de` in `nginx/xbmediation.conf` / `.env.example`)
+
+The domain `xb-mediation.de` is registered and DNS already points at the VPS; HTTPS still needs to be enabled via `certbot --nginx` there (see Deployment below).
 
 ## Deployment
 
-The app runs on a self-managed IONOS VPS behind the server's own host-installed nginx (the same nginx already reverse-proxying the other apps on that box — this is not a Dockerized nginx):
+The app runs directly on a self-managed IONOS VPS (Ubuntu) — no Docker, no managed platform. It's a deliberate match for how the other apps on that server (also Node.js/nginx-based) are already run. Node.js is expected to already be installed system-wide at `/usr/bin/node`/`/usr/bin/npm` (true on this VPS already, shared with the other apps); the app listens on port 3000 by default (`next start`'s default) — check that's not already taken by another app before deploying (`sudo ss -tlnp | grep 3000`).
 
-- `Dockerfile` — multi-stage build, Next.js standalone output
-- `docker-compose.yml` — `app` + `db` (Postgres, internal network only); `app` publishes its port to `127.0.0.1` only (see `APP_PORT` in `.env.example`) for nginx to proxy to
-- `nginx/xbmediation.conf` — server block to add to the VPS's nginx `sites-available`; serves plain HTTP until a domain exists, then `certbot --nginx` adds HTTPS (see comments in the file)
-- `docker-compose.override.yml` / `Dockerfile.dev` — local dev variant with hot reload
-- `deploy/deploy.sh` — run on the VPS to pull, rebuild, restart, and apply pending Prisma migrations
+**One-time server setup:**
 
-See `.env.example` for the environment variables both the app and `docker-compose.yml` itself expect.
+1. Install Postgres natively (`sudo apt install postgresql`), then create the app's role and database:
+   ```sql
+   sudo -u postgres psql
+   CREATE USER xbmediation WITH PASSWORD 'a-real-password';
+   CREATE DATABASE xbmediation OWNER xbmediation;
+   ```
+2. Create a dedicated system user to run the app, and clone the repo into its home directory (matching `deploy/xbmediation.service`'s `WorkingDirectory=/opt/xbmediation`):
+   ```bash
+   sudo useradd --system --create-home --home-dir /opt/xbmediation --shell /usr/sbin/nologin xbmediation
+   sudo -u xbmediation git clone https://github.com/polyphonica/xbmediation.git /opt/xbmediation
+   ```
+3. In `/opt/xbmediation`, copy `.env.example` to `.env` and fill in the real `DATABASE_URL` (matching the password from step 1) and `NEXT_PUBLIC_SITE_URL="https://xb-mediation.de"`.
+4. As the `xbmediation` user, install dependencies, run migrations, and build:
+   ```bash
+   sudo -u xbmediation bash -c 'cd /opt/xbmediation && npm ci && npx prisma migrate deploy && npm run build'
+   ```
+5. Install and enable the systemd service:
+   ```bash
+   sudo cp deploy/xbmediation.service /etc/systemd/system/
+   sudo systemctl enable --now xbmediation
+   ```
+6. Wire up nginx: `nginx/xbmediation.conf` → `/etc/nginx/sites-available/` → symlink into `sites-enabled` → `nginx -t && systemctl reload nginx`. Then enable HTTPS: `sudo certbot --nginx -d xb-mediation.de -d www.xb-mediation.de`.
+
+**Subsequent deploys:** run `deploy/deploy.sh` on the VPS (pulls, installs, migrates, rebuilds, restarts the service).
+
+See `.env.example` for the environment variables the app expects.

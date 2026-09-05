@@ -1,0 +1,15 @@
+[Unit]
+Description=XB Mediation website (Next.js)
+After=network.target postgresql.service
+
+[Service]
+Type=simple
+User=xbmediation
+WorkingDirectory=/opt/xbmediation
+EnvironmentFile=/opt/xbmediation/.env
+ExecStart=/usr/bin/npm run start
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
