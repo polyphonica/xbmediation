@@ -4,6 +4,8 @@ Website for XB Mediation (Xaver Behl), a mediation practice based in Marktheiden
 
 All site content is German. See the seven public pages under `src/app/` (Startseite, Familienmediation, Wirtschaftsmediation, Mediation, Über mich, Ablauf & Kosten, Kontakt) plus the legally required Impressum, Datenschutzerklärung and § 36 VSBG notice.
 
+`/admin` lists incoming contact-form leads and lets you update their status; it's protected by HTTP Basic Auth at the nginx level (see Deployment below), not by any login inside the app itself.
+
 ## Stack
 
 - **Framework:** Next.js (App Router) + TypeScript + Tailwind CSS v4
@@ -71,6 +73,11 @@ The app runs directly on a self-managed IONOS VPS (Ubuntu) — no Docker, no man
    sudo systemctl enable --now xbmediation
    ```
 6. Wire up nginx: `nginx/xbmediation.conf` → `/etc/nginx/sites-available/` → symlink into `sites-enabled` → `nginx -t && systemctl reload nginx`. Then enable HTTPS: `sudo certbot --nginx -d xb-mediation.de -d www.xb-mediation.de`.
+7. Create the Basic Auth password file for `/admin` (see `nginx/xbmediation.conf`'s comments — the `location /admin` block needs to exist in the *live* nginx config, which by this point has been rewritten by certbot into a separate `listen 443 ssl` server block):
+   ```bash
+   sudo apt install -y apache2-utils
+   sudo htpasswd -c /etc/nginx/.htpasswd <username>
+   ```
 
 **Subsequent deploys:** run `deploy/deploy.sh` on the VPS (pulls, installs, migrates, rebuilds, restarts the service).
 
