@@ -1,7 +1,7 @@
 "use client";
 
 import type { LeadStatus } from "@prisma/client";
-import { updateLeadStatus } from "@/app/admin/actions";
+import { updateLeadStatus } from "@/app/admin/(authenticated)/actions";
 
 const statusLabels: Record<LeadStatus, string> = {
   NEU: "Neu",

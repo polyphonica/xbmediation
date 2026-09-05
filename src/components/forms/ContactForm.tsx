@@ -2,7 +2,7 @@
 
 import { useActionState } from "react";
 import Link from "next/link";
-import { submitLead, type ContactFormState } from "@/app/kontakt/actions";
+import { submitLead, type ContactFormState } from "@/app/(marketing)/kontakt/actions";
 import { FormField } from "@/components/forms/FormField";
 import { SubmitButton } from "@/components/forms/SubmitButton";
 import { areaOptions, consentText, submitLabel, successMessage } from "@/content/kontakt";

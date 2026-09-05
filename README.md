@@ -4,7 +4,7 @@ Website for XB Mediation (Xaver Behl), a mediation practice based in Marktheiden
 
 All site content is German. See the seven public pages under `src/app/` (Startseite, Familienmediation, Wirtschaftsmediation, Mediation, Über mich, Ablauf & Kosten, Kontakt) plus the legally required Impressum, Datenschutzerklärung and § 36 VSBG notice.
 
-`/admin` lists incoming contact-form leads and lets you update their status; it's protected by HTTP Basic Auth at the nginx level (see Deployment below), not by any login inside the app itself.
+`/admin` lists incoming contact-form leads and lets you update their status. It has its own login (`/admin/login`), a signed session cookie, a logout button, and a settings page (`/admin/settings`) where the business owner can change his own password — no server access needed for that. See "Provisioning the admin password" below for the one-time setup step.
 
 ## Stack
 
@@ -19,12 +19,13 @@ Requires Node.js and a local Postgres instance.
 
 ```bash
 npm install
-cp .env.example .env        # then fill in DATABASE_URL for your local Postgres
-npx prisma migrate dev      # creates the Lead table
+cp .env.example .env        # then fill in DATABASE_URL for your local Postgres, and SESSION_SECRET
+npx prisma migrate dev      # creates the Lead and AdminCredential tables
+npx tsx scripts/create-admin-password.ts <a-password>   # sets the /admin login password
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3000](http://localhost:3000). Log into `/admin` with the password you just set.
 
 ## Editing content
 
@@ -62,7 +63,7 @@ The app runs directly on a self-managed IONOS VPS (Ubuntu) — no Docker, no man
    sudo useradd --system --create-home --home-dir /var/www/xbmediation --shell /usr/sbin/nologin xbmediation
    sudo -u xbmediation git clone https://github.com/polyphonica/xbmediation.git /var/www/xbmediation
    ```
-3. In `/var/www/xbmediation`, copy `.env.example` to `.env` and fill in the real `DATABASE_URL` (matching the password from step 1) and `NEXT_PUBLIC_SITE_URL="https://xb-mediation.de"`.
+3. In `/var/www/xbmediation`, copy `.env.example` to `.env` and fill in the real `DATABASE_URL` (matching the password from step 1), `NEXT_PUBLIC_SITE_URL="https://xb-mediation.de"`, and a real `SESSION_SECRET` (generate one with `openssl rand -base64 32`).
 4. As the `xbmediation` user, install dependencies, run migrations, and build:
    ```bash
    sudo -u xbmediation bash -c 'cd /var/www/xbmediation && npm ci && npx prisma migrate deploy && npm run build'
@@ -73,17 +74,24 @@ The app runs directly on a self-managed IONOS VPS (Ubuntu) — no Docker, no man
    sudo systemctl enable --now xbmediation
    ```
 6. Wire up nginx: `nginx/xbmediation.conf` → `/etc/nginx/sites-available/` → symlink into `sites-enabled` → `nginx -t && systemctl reload nginx`. Then enable HTTPS: `sudo certbot --nginx -d xb-mediation.de -d www.xb-mediation.de`.
-7. Protect `/admin` with HTTP Basic Auth. `deploy/setup-admin-auth.sh` does this safely — it creates the password file and inserts the `location /admin` block into whatever certbot has already rewritten the live config to (rather than overwriting it), backing up the file first and only reloading nginx if `nginx -t` passes:
-   ```bash
-   sudo deploy/setup-admin-auth.sh <username>
-   ```
-   It'll prompt you for a password for `<username>`. Re-running it later is safe (it skips steps that are already done); to add another user or change a password afterward, run `sudo htpasswd /etc/nginx/.htpasswd <username>` directly.
+7. Set the initial `/admin` password (see "Provisioning the admin password" below).
 
 **Subsequent deploys:** run `deploy/deploy.sh` on the VPS (pulls, installs, migrates, rebuilds, restarts the service).
 
+**One-time migration note** (only relevant if this deployment previously had `/admin` protected by nginx Basic Auth — a fresh install never had this, so skip it): after pulling the code that adds application-level login, remove the old `location /admin` Basic Auth block from the live nginx config with `sudo deploy/remove-admin-basic-auth.sh`. It backs up the file first and only reloads nginx if the result passes `nginx -t`.
+
 See `.env.example` for the environment variables the app expects.
+
+## Provisioning the admin password
+
+There's deliberately no public sign-up page for `/admin` — the very first password is set with a one-time script, run as the `xbmediation` user in the project directory:
+
+```bash
+sudo -u xbmediation bash -c 'cd /var/www/xbmediation && npx tsx scripts/create-admin-password.ts <a-real-password>'
+```
+
+After that, the business owner logs in at `/admin/login` and can change his own password any time via `/admin/settings` — no server access needed. Re-running the script (e.g. if the password is forgotten) safely resets it.
 
 ## Backlog (not urgent)
 
-- **Admin logout.** HTTP Basic Auth (used for `/admin`) has no logout mechanism in the HTTP protocol itself — once a browser caches the credentials, it keeps resending them automatically, and there's no reliable server-side way to force a "logout" across browsers. A real logout button requires switching `/admin` to app-level authentication (a login page, a signed session cookie, and a logout endpoint that clears it) instead of nginx Basic Auth.
 - **SEO follow-ups** beyond the JSON-LD already shipped: Open Graph/Twitter card image for link previews; redirect `www.xb-mediation.de` → `xb-mediation.de` (or vice versa) in nginx so both hostnames don't serve identical content as far as search engines are concerned.

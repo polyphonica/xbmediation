@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import { Fraunces, Public_Sans } from "next/font/google";
-import { SiteHeader } from "@/components/layout/SiteHeader";
-import { SiteFooter } from "@/components/layout/SiteFooter";
 import { site } from "@/content/site";
-import { organizationJsonLd } from "@/lib/structured-data";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -34,15 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       lang="de"
       className={`${fraunces.variable} ${publicSans.variable} h-full antialiased`}
     >
-      <body className="bg-cream flex min-h-full flex-col">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd()) }}
-        />
-        <SiteHeader />
-        <main className="flex-1">{children}</main>
-        <SiteFooter />
-      </body>
+      <body className="bg-cream flex min-h-full flex-col">{children}</body>
     </html>
   );
 }
