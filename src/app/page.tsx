@@ -27,7 +27,7 @@ export default function Home() {
       <section className="pb-20 sm:pb-28">
         <Container className="grid gap-6 sm:grid-cols-3">
           {cards.map((card) => (
-            <Card key={card.title} {...card} />
+            <Card key={card.title} {...card} center />
           ))}
         </Container>
       </section>

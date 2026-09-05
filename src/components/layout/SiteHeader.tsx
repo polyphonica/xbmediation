@@ -16,10 +16,30 @@ export function SiteHeader() {
 
   return (
     <header className="border-border/70 bg-cream/95 sticky top-0 z-40 border-b backdrop-blur">
-      <Container className="flex h-20 items-center justify-between">
-        <Logo />
+      <Container>
+        <div className="flex h-20 items-center justify-between">
+          <Logo />
 
-        <nav className="hidden items-center gap-7 lg:flex">
+          <div className="flex items-center gap-4">
+            <div className="hidden sm:block">
+              <Button href={headerCta.href} className="px-5 py-2.5 text-xs">
+                {headerCta.label}
+              </Button>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setOpen((v) => !v)}
+              aria-label={open ? "Menü schließen" : "Menü öffnen"}
+              aria-expanded={open}
+              className="text-navy inline-flex h-10 w-10 items-center justify-center lg:hidden"
+            >
+              {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
+          </div>
+        </div>
+
+        <nav className="hidden items-center gap-6 pb-4 lg:flex">
           {primaryNav.map((item) => {
             const active = pathname === item.href;
             return (
@@ -27,7 +47,7 @@ export function SiteHeader() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "relative py-1 text-sm font-medium text-ink-soft transition-colors hover:text-navy",
+                  "relative py-1 text-xs font-semibold tracking-[0.08em] text-ink-soft uppercase transition-colors hover:text-navy",
                   "after:absolute after:-bottom-1 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-olive after:transition-transform after:duration-200 hover:after:scale-x-100",
                   active && "text-navy after:scale-x-100",
                 )}
@@ -37,22 +57,6 @@ export function SiteHeader() {
             );
           })}
         </nav>
-
-        <div className="hidden lg:block">
-          <Button href={headerCta.href} className="px-5 py-2.5 text-xs">
-            {headerCta.label}
-          </Button>
-        </div>
-
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          aria-label={open ? "Menü schließen" : "Menü öffnen"}
-          aria-expanded={open}
-          className="text-navy -mr-2 inline-flex h-10 w-10 items-center justify-center lg:hidden"
-        >
-          {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
       </Container>
 
       {open ? (
@@ -71,7 +75,7 @@ export function SiteHeader() {
                 {item.label}
               </Link>
             ))}
-            <Button href={headerCta.href} className="mt-3">
+            <Button href={headerCta.href} className="mt-3 sm:hidden">
               {headerCta.label}
             </Button>
           </Container>

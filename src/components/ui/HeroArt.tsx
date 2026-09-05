@@ -12,17 +12,24 @@ export function HeroArt({
   placeholder,
   alt,
   className,
+  bleed = false,
 }: {
   placeholder: Placeholder;
   alt: string;
   className?: string;
+  /** Full-bleed background-photo treatment (fills its container edge-to-edge,
+   * no card framing) instead of the default contained, rounded box. */
+  bleed?: boolean;
 }) {
   return (
     <div
       role="img"
       aria-label={alt}
       className={cn(
-        "bg-grain relative aspect-4/5 w-full overflow-hidden rounded-2xl sm:aspect-3/4",
+        "bg-grain relative w-full overflow-hidden",
+        bleed
+          ? "h-full rounded-l-3xl sm:rounded-l-[2.5rem]"
+          : "aspect-4/5 rounded-2xl sm:aspect-3/4",
         className,
       )}
     >
@@ -33,7 +40,12 @@ export function HeroArt({
       >
         <Scene placeholder={placeholder} />
       </svg>
-      <div className="ring-navy/8 pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset" />
+      <div
+        className={cn(
+          "ring-navy/8 pointer-events-none absolute inset-0 ring-1 ring-inset",
+          bleed ? "rounded-l-3xl sm:rounded-l-[2.5rem]" : "rounded-2xl",
+        )}
+      />
     </div>
   );
 }
@@ -44,19 +56,19 @@ function Scene({ placeholder }: { placeholder: Placeholder }) {
       return (
         <>
           <defs>
-            <linearGradient id="g-portrait" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#dfe3d4" />
-              <stop offset="100%" stopColor="#f2efe6" />
-            </linearGradient>
+            <radialGradient id="g-portrait" cx="50%" cy="32%" r="75%">
+              <stop offset="0%" stopColor="#e9e7d8" />
+              <stop offset="60%" stopColor="#cdd2bd" />
+              <stop offset="100%" stopColor="#9aa48c" />
+            </radialGradient>
           </defs>
           <rect width="400" height="500" fill="url(#g-portrait)" />
-          <circle cx="200" cy="205" r="180" fill="none" stroke="#18254122" strokeWidth="1" />
-          <circle cx="200" cy="205" r="130" fill="none" stroke="#18254122" strokeWidth="1" />
-          <circle cx="200" cy="185" r="62" fill="#182541" opacity="0.85" />
+          {/* Bust filling the frame like a cropped portrait photo, not a small centered icon. */}
+          <circle cx="200" cy="152" r="92" fill="#182541" opacity="0.92" />
           <path
-            d="M92 470c8-84 56-140 108-140s100 56 108 140"
+            d="M18 500c0-132 82-224 182-224s182 92 182 224z"
             fill="#182541"
-            opacity="0.85"
+            opacity="0.92"
           />
         </>
       );
@@ -87,15 +99,21 @@ function Scene({ placeholder }: { placeholder: Placeholder }) {
           <defs>
             <linearGradient id="g-office" x1="0" y1="0" x2="1" y2="1">
               <stop offset="0%" stopColor="#e7e5da" />
-              <stop offset="100%" stopColor="#c9cbc0" />
+              <stop offset="100%" stopColor="#c1c4b7" />
             </linearGradient>
+            <radialGradient id="g-office-light" cx="72%" cy="35%" r="70%">
+              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.9" />
+              <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+            </radialGradient>
           </defs>
+          {/* Composition kept within the vertical middle band so it still
+              reads correctly whether cropped tall (contained mobile card)
+              or short (full-bleed desktop banner). */}
           <rect width="400" height="500" fill="url(#g-office)" />
-          <rect x="40" y="60" width="320" height="180" fill="none" stroke="#18254133" strokeWidth="1.5" />
-          <line x1="200" y1="60" x2="200" y2="240" stroke="#18254122" />
-          <rect x="80" y="300" width="240" height="110" rx="6" fill="#182541" opacity="0.12" />
-          {[100, 160, 220, 280].map((x) => (
-            <rect key={x} x={x} y="420" width="20" height="46" rx="3" fill="#182541" opacity="0.35" />
+          <rect width="400" height="500" fill="url(#g-office-light)" />
+          <rect x="20" y="215" width="360" height="150" rx="12" fill="#182541" opacity="0.85" />
+          {[70, 150, 250, 330].map((x) => (
+            <rect key={x} x={x} y="375" width="28" height="46" rx="5" fill="#182541" opacity="0.4" />
           ))}
         </>
       );
