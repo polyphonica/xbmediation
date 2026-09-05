@@ -1,8 +1,7 @@
 # Applied automatically by `docker compose up` when this file sits next to
 # docker-compose.yml — gives local dev the same two services (app, db) as
 # the IONOS deployment, but with hot reload and a Postgres port reachable
-# from the host for `psql`/Prisma Studio. The `caddy` service is skipped
-# locally since there's no domain to issue a certificate for yet.
+# from the host for `psql`/Prisma Studio.
 services:
   app:
     build:
@@ -21,6 +20,3 @@ services:
   db:
     ports:
       - "127.0.0.1:5432:5432"
-
-  caddy:
-    profiles: ["prod-only"]

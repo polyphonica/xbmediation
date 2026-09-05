@@ -5,6 +5,12 @@ services:
     environment:
       DATABASE_URL: postgresql://xbmediation:${POSTGRES_PASSWORD}@db:5432/xbmediation
       NEXT_PUBLIC_SITE_URL: ${SITE_URL:-http://localhost}
+    ports:
+      # Bound to loopback only — the host's own nginx (not this compose
+      # stack) terminates TLS and proxies to this port. Never publish this
+      # on a public interface. Set APP_PORT if 3000 collides with another
+      # app already running on the server.
+      - "127.0.0.1:${APP_PORT:-3000}:3000"
     depends_on:
       - db
 
@@ -20,20 +26,5 @@ services:
     # Intentionally no `ports:` mapping — only the `app` service can reach
     # Postgres, over the internal Docker network. Never bind this publicly.
 
-  caddy:
-    image: caddy:2-alpine
-    restart: unless-stopped
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
-      - caddy_data:/data
-      - caddy_config:/config
-    depends_on:
-      - app
-
 volumes:
   pgdata:
-  caddy_data:
-  caddy_config:
