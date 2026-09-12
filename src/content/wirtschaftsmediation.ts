@@ -20,7 +20,8 @@ export const hero: HeroContent = {
     "In Unternehmen treffen unterschiedliche Interessen, Verantwortlichkeiten und Erwartungen aufeinander. Mediation kann helfen, wieder Klarheit zu schaffen, Vertrauen aufzubauen und gemeinsam tragfähige Lösungen für die Zukunft zu entwickeln.",
   image: {
     placeholder: "office",
-    alt: "Modernes Besprechungszimmer als Ort konstruktiver Wirtschaftsmediation",
+    alt: "Modernes Besprechungszimmer mit Konferenztisch und Panoramablick als Ort konstruktiver Wirtschaftsmediation",
+    src: "/images/hero-wirtschaftsmediation.jpg",
   },
 };
 
