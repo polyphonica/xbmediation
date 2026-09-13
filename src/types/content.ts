@@ -20,6 +20,9 @@ export type HeroContent = {
      * palette and drops the alpha channel, rendering a solid white box
      * instead of transparency. */
     unoptimized?: boolean;
+    /** Draws a thin inset ring around the image frame. Defaults to true;
+     * set false for images (like a logo) that shouldn't be boxed in. */
+    ring?: boolean;
   };
 };
 

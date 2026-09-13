@@ -48,12 +48,14 @@ export function HeroImage({
         priority
         unoptimized={image.unoptimized}
       />
-      <div
-        className={cn(
-          "ring-navy/8 pointer-events-none absolute inset-0 ring-1 ring-inset",
-          bleed ? "rounded-l-3xl sm:rounded-l-[2.5rem]" : "rounded-2xl",
-        )}
-      />
+      {image.ring === false ? null : (
+        <div
+          className={cn(
+            "ring-navy/8 pointer-events-none absolute inset-0 ring-1 ring-inset",
+            bleed ? "rounded-l-3xl sm:rounded-l-[2.5rem]" : "rounded-2xl",
+          )}
+        />
+      )}
     </div>
   );
 }

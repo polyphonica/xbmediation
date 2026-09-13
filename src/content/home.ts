@@ -23,6 +23,7 @@ export const hero: HeroContent = {
     src: "/images/logo-xb.png",
     alt: "XB Mediation Logo",
     unoptimized: true,
+    ring: false,
   },
 };
 
