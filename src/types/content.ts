@@ -15,6 +15,11 @@ export type HeroContent = {
     /** Real photo path under /public — takes precedence over the abstract
      * placeholder art when set. */
     src?: string;
+    /** Skip Next's built-in image optimizer. Needed for the transparent
+     * logo PNG: its re-encoding step converts the image to an indexed
+     * palette and drops the alpha channel, rendering a solid white box
+     * instead of transparency. */
+    unoptimized?: boolean;
   };
 };
 

@@ -46,6 +46,7 @@ export function HeroImage({
         sizes={bleed ? "44vw" : "(min-width: 640px) 50vw, 100vw"}
         className="object-cover"
         priority
+        unoptimized={image.unoptimized}
       />
       <div
         className={cn(

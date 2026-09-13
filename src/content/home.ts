@@ -22,6 +22,7 @@ export const hero: HeroContent = {
     placeholder: "portrait",
     src: "/images/logo-xb.png",
     alt: "XB Mediation Logo",
+    unoptimized: true,
   },
 };
 
