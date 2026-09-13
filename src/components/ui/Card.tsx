@@ -7,6 +7,7 @@ export function Card({
   icon,
   title,
   body,
+  meta,
   href,
   linkLabel,
   center = false,
@@ -14,6 +15,7 @@ export function Card({
   icon?: IconName;
   title: string;
   body: string;
+  meta?: string;
   href?: string;
   linkLabel?: string;
   center?: boolean;
@@ -32,6 +34,7 @@ export function Card({
       ) : null}
       <h3 className="font-display text-xl font-medium text-navy">{title}</h3>
       <p className="mt-2 text-sm leading-relaxed text-ink-soft">{body}</p>
+      {meta ? <p className="mt-2 text-sm leading-relaxed text-ink-soft">{meta}</p> : null}
       {href && linkLabel ? (
         <span
           className={cn(
