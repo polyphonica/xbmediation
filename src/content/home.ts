@@ -15,7 +15,7 @@ export const hero: HeroContent = {
   heading: "Verstehen. Verbinden.",
   headingAccent: "Lösung gestalten.",
   intro:
-    "Konflikte klären. Lösungen gemeinsam entwickeln. Ich begleite Menschen und Unternehmen dabei, Konflikte strukturiert, neutral und einfühlsam zu bearbeiten – mit dem Ziel, tragfähige Lösungen zu entwickeln.",
+    "Konflikte klären. Lösungen gemeinsam entwickeln. Ich begleite Menschen und Unternehmen dabei, Konflikte strukturiert, neutral und empathisch zu bearbeiten – mit dem Ziel, tragfähige Lösungen zu entwickeln.",
   ctaLabel: "Erstgespräch vereinbaren",
   ctaHref: "/kontakt",
   image: {

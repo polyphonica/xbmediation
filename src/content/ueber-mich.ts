@@ -25,7 +25,7 @@ export const backgroundBody =
 export const trainingHeading = "Meine Ausbildung in Mediation";
 // TODO: confirm exact institute name and course dates.
 export const trainingBody =
-  "Ausbildung zum Mediator am Frankfurt Campus bei ConsensusFundierte Ausbildung im Bereich der Mediation mit dem Schwerpunkt auf professioneller Konfliktlösung, Gesprächsführung und der konstruktiven Begleitung von Konfliktparteien. Vermittlung theoretischer Grundlagen sowie praxisnaher Methoden und Techniken der Mediation.";
+  "Ausbildung zum Mediator am Frankfurt Campus bei Consensus. Fundierte Ausbildung im Bereich der Mediation mit dem Schwerpunkt auf professioneller Konfliktlösung, Gesprächsführung und der konstruktiven Begleitung von Konfliktparteien. Vermittlung theoretischer Grundlagen sowie praxisnaher Methoden und Techniken der Mediation.";
 export const trainingCompletion = "Abschluss: Juni 2026";
 
 export const engagementHeading = "Verantwortung & Engagement";

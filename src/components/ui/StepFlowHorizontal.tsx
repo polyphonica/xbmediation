@@ -12,7 +12,7 @@ export function StepFlowHorizontal({ steps }: { steps: StepContent[] }) {
               {step.number}
             </span>
             <div className="lg:mt-4 lg:px-2">
-              <p className="font-display text-base font-medium text-navy">
+              <p className="font-display text-base font-medium text-navy lg:min-h-12">
                 {step.title}
               </p>
               {step.body ? (
