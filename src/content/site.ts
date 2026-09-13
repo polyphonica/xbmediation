@@ -3,14 +3,12 @@ export const site = {
   mediatorName: "Xaver Behl",
   tagline: "Verstehen. Verbinden. Lösung gestalten.",
   // TODO: confirm real phone number, email domain and postal address with the client before launch.
-  phone: "0151 123 456 78",
+  phone: "+49 175 5 909 725",
   email: "kontakt@xb-mediation.de",
   locations: [
-    "Marktheidenfeld",
-    "Main-Spessart",
-    "Lohr",
-    "Würzburg",
+    "Rhein-Main",
     "Aschaffenburg",
+    "Main-Spessart & Würzburg",
   ],
   serviceArea:
     "Online deutschlandweit und im deutschsprachigen Raum",

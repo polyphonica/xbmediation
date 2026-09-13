@@ -17,7 +17,7 @@ export const hero: HeroContent = {
   heading: "Konflikte verstehen.",
   headingAccent: "Gemeinsam Lösungen entwickeln.",
   intro:
-    "Mediation ist ein freiwilliger, vertraulicher und strukturierter Prozess. Ein neutraler Mediator unterstützt die Beteiligten dabei, ihre unterschiedlichen Sichtweisen, Interessen und Bedürfnisse zu besprechen und miteinander eine Lösung zu erarbeiten.",
+    "Mediation ist ein freiwilliger, vertraulicher und strukturierter Prozess. Ein neutraler Mediator unterstützt die Beteiligten dabei, ihre unterschiedlichen Sichtweisen, Interessen und Bedürfnisse zu besprechen und miteinander Lösungen zu erarbeiten.",
   image: {
     placeholder: "stones",
     src: "/images/hero-mediation.jpg",
