@@ -13,7 +13,7 @@ export const sections = [
     heading: "1. Verantwortlicher",
     paragraphs: [
       "Verantwortlich für die Datenverarbeitung auf dieser Website ist:",
-      "Xaver Behl, XB Mediation, [Anschrift – bitte ergänzen], E-Mail: kontakt@xb-mediation.de",
+      "Xaver Behl, XB Mediation, Schneeleinsweg 3, 97855 Triefenstein, E-Mail: kontakt@xb-mediation.de",
     ],
   },
   {
@@ -33,7 +33,7 @@ export const sections = [
     heading: "4. Speicherort und Speicherdauer",
     paragraphs: [
       "Ihre Daten werden auf einem Server gespeichert, der von uns selbst betrieben wird und sich in Deutschland befindet. Es erfolgt keine Übermittlung an Cloud-Anbieter außerhalb der EU.",
-      "Ihre Anfrage wird gespeichert, bis Ihr Anliegen abschließend bearbeitet wurde, längstens jedoch für [Zeitraum – bitte festlegen, z. B. 12 Monate], sofern keine gesetzlichen Aufbewahrungspflichten entgegenstehen. Sie können jederzeit die Löschung Ihrer Daten verlangen.",
+      "Ihre Anfrage wird gespeichert, bis Ihr Anliegen abschließend bearbeitet wurde, längstens jedoch für 12 Monate, sofern keine gesetzlichen Aufbewahrungspflichten entgegenstehen. Sie können jederzeit die Löschung Ihrer Daten verlangen.",
     ],
   },
   {

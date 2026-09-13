@@ -2,7 +2,7 @@ export const site = {
   name: "XB Mediation",
   mediatorName: "Xaver Behl",
   tagline: "Verstehen. Verbinden. Lösung gestalten.",
-  // TODO: confirm real phone number, email domain and postal address with the client before launch.
+  // TODO: confirm real postal address with the client before launch.
   phone: "+49 175 5 909 725",
   email: "kontakt@xb-mediation.de",
   locations: [

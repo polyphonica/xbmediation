@@ -31,7 +31,7 @@ export const trainingCompletion = "Abschluss: Juni 2026";
 export const engagementHeading = "Verantwortung & Engagement";
 // TODO: confirm exact roles/organisations before publishing.
 export const engagementBody =
-  "Aktives Mitglied der freiwilligen Feuerwehr, Kassierer im Feuerwehrausschuss, Vater von zwei Kindern.";
+  "Aktives Mitglied und Kassierer der Freiwilligen Feuerwehr Rettersheim. Mitglied des Prüfungsausschusses der DHBW Mosbach. Vater von zwei Kindern.";
 
 export const roleHeading = "Meine Rolle";
 export const roleBody =

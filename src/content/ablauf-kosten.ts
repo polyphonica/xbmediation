@@ -53,7 +53,7 @@ export const modeHeading = "Online oder persönlich?";
 export const modeItems = [
   {
     icon: "map-pin" as const,
-    text: "Persönliche Termine in Marktheidenfeld, Main-Spessart, Lohr, Würzburg und Aschaffenburg.",
+    text: "Persönliche Termine in Rhein-Main, Aschaffenburg, Main-Spessart & Würzburg.",
   },
   {
     icon: "monitor" as const,

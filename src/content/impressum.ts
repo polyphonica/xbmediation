@@ -14,14 +14,13 @@ export const sections = [
     lines: [
       "Xaver Behl",
       "XB Mediation",
-      "[Straße und Hausnummer – bitte ergänzen]",
-      "[PLZ und Ort – bitte ergänzen]",
+      "Schneeleinsweg 3, 97855 Triefenstein",
       "Deutschland",
     ],
   },
   {
     heading: "Kontakt",
-    lines: ["Telefon: [Telefonnummer bestätigen]", "E-Mail: kontakt@xb-mediation.de"],
+    lines: ["Telefon: +49 175 5 909 725", "E-Mail: kontakt@xb-mediation.de"],
   },
   {
     heading: "Umsatzsteuer-Identifikationsnummer",
@@ -30,8 +29,7 @@ export const sections = [
   {
     heading: "Berufsbezeichnung und berufsrechtliche Regelungen",
     lines: [
-      "Mediator, Ausbildung gemäß dem deutschen Mediationsgesetz (MediationsG).",
-      "[Zuständige Kammer oder zuständiger Verband, sofern eine Mitgliedschaft besteht – bitte ergänzen]",
+      "Mediator nach Abschluss einer vom IMI (International Mediation Institute) zertifizierten Mediationsausbildung",
     ],
   },
   {
