@@ -20,7 +20,8 @@ export const hero: HeroContent = {
   ctaHref: "/kontakt",
   image: {
     placeholder: "portrait",
-    alt: "Xaver Behl, Mediator bei XB Mediation",
+    src: "/images/logo-xb.png",
+    alt: "XB Mediation Logo",
   },
 };
 
