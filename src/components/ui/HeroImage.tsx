@@ -29,6 +29,22 @@ export function HeroImage({
     );
   }
 
+  if (image.contain) {
+    return (
+      <div className={cn("relative w-full", className)}>
+        <Image
+          src={image.src}
+          alt={image.alt}
+          width={1536}
+          height={1024}
+          sizes="(min-width: 1024px) 40vw, 100vw"
+          className="h-auto w-full object-contain"
+          priority
+        />
+      </div>
+    );
+  }
+
   return (
     <div
       className={cn(

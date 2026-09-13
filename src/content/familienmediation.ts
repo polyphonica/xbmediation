@@ -20,8 +20,8 @@ export const hero: HeroContent = {
     "Familienkonflikte sind häufig besonders emotional. Mediation schafft einen geschützten Rahmen, in dem unterschiedliche Sichtweisen ausgesprochen, verstanden und gemeinsam tragfähige Lösungen entwickelt werden können.",
   image: {
     placeholder: "lake",
-    src: "/images/hero-familienmediation.jpg",
-    alt: "Ruhiger Schreibtisch mit Notizbuch, Stift und Eukalyptuszweig als Sinnbild für Klarheit in der Familienmediation",
+    src: "/images/hero-familienmediation.png",
+    alt: "Holzfiguren einer Familie auf einem Besprechungstisch als Sinnbild für Familienmediation",
   },
 };
 

@@ -2,14 +2,19 @@ import type { HeroContent } from "@/types/content";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { HeroImage } from "@/components/ui/HeroImage";
+import { cn } from "@/lib/cn";
 
 export function Hero({ content }: { content: HeroContent }) {
+  const contain = content.image.contain ?? false;
+
   return (
     <section className="relative overflow-hidden pt-16 pb-20 sm:pt-24 sm:pb-28">
       {/* Desktop: image bleeds full-height to the page edge, like a background photo. */}
-      <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[44%] lg:block">
-        <HeroImage image={content.image} bleed />
-      </div>
+      {!contain ? (
+        <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[44%] lg:block">
+          <HeroImage image={content.image} bleed />
+        </div>
+      ) : null}
 
       <Container className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
         <div className="animate-fade-up relative">
@@ -42,8 +47,12 @@ export function Hero({ content }: { content: HeroContent }) {
           ) : null}
         </div>
 
-        {/* Mobile/tablet: contained image, stacked below the text. */}
-        <div className="animate-fade-up lg:hidden" style={{ animationDelay: "120ms" }}>
+        {/* Mobile/tablet: contained image, stacked below the text.
+            Also shown at desktop when the image opts out of the bleed treatment. */}
+        <div
+          className={cn("animate-fade-up", !contain && "lg:hidden")}
+          style={{ animationDelay: "120ms" }}
+        >
           <HeroImage image={content.image} />
         </div>
       </Container>

@@ -15,6 +15,11 @@ export type HeroContent = {
     /** Real photo path under /public — takes precedence over the abstract
      * placeholder art when set. */
     src?: string;
+    /** Render at its natural aspect ratio, sized to the text column, instead
+     * of the default full-bleed cropped photo treatment. For non-photo
+     * images (e.g. a logo) where cropping or full-height bleed would look
+     * wrong. */
+    contain?: boolean;
   };
 };
 
