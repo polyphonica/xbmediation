@@ -35,7 +35,9 @@ export function HeroImage({
         "relative w-full overflow-hidden",
         bleed
           ? "h-full rounded-l-3xl sm:rounded-l-[2.5rem]"
-          : "aspect-4/5 rounded-2xl sm:aspect-3/4",
+          : image.contain
+            ? "aspect-3/2 rounded-2xl"
+            : "aspect-4/5 rounded-2xl sm:aspect-3/4",
         className,
       )}
     >
@@ -44,7 +46,7 @@ export function HeroImage({
         alt={image.alt}
         fill
         sizes={bleed ? "44vw" : "(min-width: 640px) 50vw, 100vw"}
-        className="object-cover"
+        className={image.contain ? "object-contain" : "object-cover"}
         priority
         unoptimized={image.unoptimized}
       />

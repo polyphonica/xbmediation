@@ -23,6 +23,10 @@ export type HeroContent = {
     /** Draws a thin inset ring around the image frame. Defaults to true;
      * set false for images (like a logo) that shouldn't be boxed in. */
     ring?: boolean;
+    /** Fits the whole image within its frame instead of cropping to fill
+     * it. Defaults to false (cover, as photos want); set true for images
+     * (like a logo with text) that must never be cropped. */
+    contain?: boolean;
   };
 };
 

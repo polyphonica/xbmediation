@@ -24,6 +24,7 @@ export const hero: HeroContent = {
     alt: "XB Mediation Logo",
     unoptimized: true,
     ring: false,
+    contain: true,
   },
 };
 
