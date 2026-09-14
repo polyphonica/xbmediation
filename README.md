@@ -4,7 +4,7 @@ Website for XB Mediation (Xaver Behl), a mediation practice based in Marktheiden
 
 All site content is German. See the seven public pages under `src/app/` (Startseite, Familienmediation, Wirtschaftsmediation, Mediation, Über mich, Ablauf & Kosten, Kontakt) plus the legally required Impressum, Datenschutzerklärung and § 36 VSBG notice.
 
-`/admin` lists incoming contact-form leads and lets you update their status. It has its own login (`/admin/login`), a signed session cookie, a logout button, and a settings page (`/admin/settings`) where the business owner can change his own password — no server access needed for that. See "Provisioning the admin password" below for the one-time setup step.
+`/admin` lists incoming contact-form leads and lets you update their status. It has its own login (`/admin/login`), a signed session cookie, a logout button, a settings page (`/admin/settings`) where the business owner can change his own password, and a "Passwort vergessen?" email-based reset flow for if he forgets it — no server access needed for any of that. See "Provisioning the admin password" below for the one-time setup step.
 
 ## Stack
 
@@ -90,7 +90,7 @@ There's deliberately no public sign-up page for `/admin` — the very first pass
 sudo -u xbmediation bash -c 'cd /var/www/xbmediation && npx tsx scripts/create-admin-password.ts <a-real-password>'
 ```
 
-After that, the business owner logs in at `/admin/login` and can change his own password any time via `/admin/settings` — no server access needed. Re-running the script (e.g. if the password is forgotten) safely resets it.
+After that, the business owner logs in at `/admin/login` and can change his own password any time via `/admin/settings` — no server access needed. If he forgets it, "Passwort vergessen?" on the login page emails a one-time reset link (valid 60 minutes) to `ADMIN_EMAIL` (see `.env.example`) — also no server access needed. Re-running the script above is only a fallback for if that mailbox itself becomes unreachable.
 
 ## Backlog (not urgent)
 

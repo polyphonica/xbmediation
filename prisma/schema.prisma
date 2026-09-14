@@ -38,10 +38,15 @@ model Lead {
 // A single row (id is always "singleton") — one shared admin password for
 // the business owner, no per-user accounts. failedAttempts/lockedUntil
 // implement a simple brute-force lockout self-contained in this table.
+// resetTokenHash/resetTokenExpiresAt back the "Passwort vergessen?" email
+// flow (see src/app/admin/login/forgot-password/) — only the SHA-256 hash
+// of the token is stored, never the token itself.
 model AdminCredential {
-  id             String    @id @default("singleton")
-  passwordHash   String
-  failedAttempts Int       @default(0)
-  lockedUntil    DateTime?
-  updatedAt      DateTime  @updatedAt
+  id                  String    @id @default("singleton")
+  passwordHash        String
+  failedAttempts      Int       @default(0)
+  lockedUntil         DateTime?
+  resetTokenHash      String?
+  resetTokenExpiresAt DateTime?
+  updatedAt           DateTime  @updatedAt
 }

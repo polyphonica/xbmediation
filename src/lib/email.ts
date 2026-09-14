@@ -59,3 +59,31 @@ export async function notifyNewLead(lead: Lead): Promise<void> {
     console.error(`[lead] failed to send notification email for lead ${lead.id}`, error);
   }
 }
+
+/**
+ * Emails the admin password-reset link. There's only one admin account, so
+ * unlike notifyNewLead this throws on failure instead of swallowing it —
+ * the caller needs to know whether the link actually went out.
+ */
+export async function sendPasswordResetEmail(resetUrl: string): Promise<void> {
+  const transporter = getTransporter();
+  const to = process.env.ADMIN_EMAIL || process.env.CONTACT_NOTIFY_TO || process.env.SMTP_USER;
+
+  if (!transporter || !to) {
+    console.log(`[admin] password reset requested (SMTP not configured): ${resetUrl}`);
+    return;
+  }
+
+  await transporter.sendMail({
+    from: `"XB Mediation Website" <${process.env.SMTP_USER}>`,
+    to,
+    subject: "Passwort zurücksetzen – XB Mediation Admin",
+    text: [
+      "Es wurde ein Zurücksetzen des Admin-Passworts angefordert.",
+      "",
+      `Link zum Zurücksetzen (60 Minuten gültig): ${resetUrl}`,
+      "",
+      "Falls Sie das nicht angefordert haben, ignorieren Sie diese E-Mail einfach.",
+    ].join("\n"),
+  });
+}

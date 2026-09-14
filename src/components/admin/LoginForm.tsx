@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
+import Link from "next/link";
 import { login, type LoginState } from "@/app/admin/login/actions";
 import { Button } from "@/components/ui/Button";
 
@@ -30,6 +31,12 @@ export function LoginForm() {
       <Button type="submit" className="w-full">
         Anmelden
       </Button>
+
+      <p className="text-center text-sm text-ink-soft">
+        <Link href="/admin/login/forgot-password" className="text-olive-dark hover:underline">
+          Passwort vergessen?
+        </Link>
+      </p>
     </form>
   );
 }
