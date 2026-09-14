@@ -2,14 +2,22 @@ import type { HeroContent } from "@/types/content";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { HeroImage } from "@/components/ui/HeroImage";
+import { cn } from "@/lib/cn";
 
 export function Hero({ content }: { content: HeroContent }) {
+  // Photos bleed full-height to the page edge, like a background photo.
+  // Contained images (e.g. the home logo) aren't photos and shouldn't be
+  // stretched to fill the section — they sit in the grid, sized to match
+  // the text column next to them.
+  const bleed = !content.image.contain;
+
   return (
     <section className="relative overflow-hidden pt-16 pb-20 sm:pt-24 sm:pb-28">
-      {/* Desktop: image bleeds full-height to the page edge, like a background photo. */}
-      <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[44%] lg:block">
-        <HeroImage image={content.image} bleed />
-      </div>
+      {bleed ? (
+        <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[44%] lg:block">
+          <HeroImage image={content.image} bleed />
+        </div>
+      ) : null}
 
       <Container className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
         <div className="animate-fade-up relative">
@@ -42,8 +50,17 @@ export function Hero({ content }: { content: HeroContent }) {
           ) : null}
         </div>
 
-        {/* Mobile/tablet: contained image, stacked below the text. */}
-        <div className="animate-fade-up lg:hidden" style={{ animationDelay: "120ms" }}>
+        <div
+          className={cn(
+            "animate-fade-up",
+            bleed
+              ? // Mobile/tablet only: desktop shows the full-bleed photo instead.
+                "lg:hidden"
+              : // Contained image: stays in flow and sized to match the text column.
+                "mx-auto w-full max-w-sm lg:mx-0",
+          )}
+          style={{ animationDelay: "120ms" }}
+        >
           <HeroImage image={content.image} />
         </div>
       </Container>
