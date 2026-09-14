@@ -19,8 +19,16 @@ export function Hero({ content }: { content: HeroContent }) {
         </div>
       ) : null}
 
-      <Container className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
-        <div className="animate-fade-up relative">
+      <Container
+        className={cn(
+          "grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16",
+          // Contained image: stretch the row so the image column matches
+          // the text column's rendered height (top of heading to bottom
+          // of the button), not the section's padded height.
+          bleed ? null : "lg:items-stretch",
+        )}
+      >
+        <div className="animate-fade-up relative lg:self-center">
           {content.eyebrow ? (
             <p className="font-sans text-xs font-semibold tracking-[0.28em] text-olive-dark uppercase">
               {content.eyebrow}
@@ -56,12 +64,16 @@ export function Hero({ content }: { content: HeroContent }) {
             bleed
               ? // Mobile/tablet only: desktop shows the full-bleed photo instead.
                 "lg:hidden"
-              : // Contained image: stays in flow and sized to match the text column.
-                "mx-auto w-full max-w-sm lg:mx-0",
+              : // Contained image: sized to match the text column on mobile,
+                // stretched to its full rendered height on desktop.
+                "mx-auto flex w-full max-w-sm items-center justify-center lg:mx-0 lg:h-full lg:max-w-none",
           )}
           style={{ animationDelay: "120ms" }}
         >
-          <HeroImage image={content.image} />
+          <HeroImage
+            image={content.image}
+            className={bleed ? undefined : "lg:aspect-auto lg:h-full lg:max-w-full"}
+          />
         </div>
       </Container>
     </section>
