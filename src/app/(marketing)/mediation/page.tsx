@@ -27,7 +27,7 @@ export default function MediationPage() {
 
       <section className="pb-20 sm:pb-28">
         <Container>
-          <SectionHeading heading={principlesHeading} align="center" />
+          <SectionHeading heading={principlesHeading} />
           <div className="mt-10">
             <IconGrid items={principles} columns={5} />
           </div>
@@ -36,7 +36,7 @@ export default function MediationPage() {
 
       <section className="bg-stone/50 py-20 sm:py-28">
         <Container>
-          <SectionHeading heading={phasesHeading} align="center" />
+          <SectionHeading heading={phasesHeading} />
           <div className="mt-12">
             <StepFlowHorizontal steps={phases} />
           </div>
