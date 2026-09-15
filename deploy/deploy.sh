@@ -17,6 +17,13 @@ sudo -u xbmediation bash -c "
   npm ci
   npx prisma migrate deploy
   npm run build
+  # Next.js's built-in image optimizer caches rendered images on disk
+  # (default TTL 4h) keyed by URL, independent of the build. If a static
+  # asset under public/ changes without a URL/filename change (e.g. a
+  # hero photo swap), stale renditions would otherwise keep being served
+  # for up to 4 hours after this deploy. Clear it on every release so a
+  # changed asset is reflected immediately.
+  rm -rf .next/cache/images
 "
 
 systemctl restart xbmediation
