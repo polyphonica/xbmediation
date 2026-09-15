@@ -21,7 +21,7 @@ export const hero: HeroContent = {
   image: {
     placeholder: "stones",
     src: "/images/hero-mediation.jpg",
-    alt: "Hölzerner Steg durch die Dünen zum Meer bei Sonnenuntergang als Sinnbild für den gemeinsamen Weg in der Mediation",
+    alt: "Drei Holzwürfel mit Symbolen für Menschen, Gespräch und Handschlag als Sinnbild für den Ablauf der Mediation",
   },
 };
 
