@@ -26,7 +26,7 @@ export const sections = [
     heading: "3. Zweck und Rechtsgrundlage der Verarbeitung",
     paragraphs: [
       "Die Verarbeitung dient der Bearbeitung Ihrer Anfrage und der Kontaktaufnahme im Rahmen der Anbahnung einer Mediation. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (vorvertragliche Maßnahme) sowie, soweit erforderlich, Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der Bearbeitung eingehender Anfragen).",
-      "Da es sich bei Mediationsanliegen häufig um sensible persönliche Informationen handelt, behandeln wir alle über das Formular übermittelten Angaben mit besonderer Vertraulichkeit und geben sie nicht an Dritte weiter.",
+      "Da es sich bei Mediationsanliegen um potentiell sensible persönliche Daten handelt, behandeln wir alle über das Formular übermittelten Angaben mit besonderer Vertraulichkeit und geben sie nicht an Dritte weiter.",
     ],
   },
   {
