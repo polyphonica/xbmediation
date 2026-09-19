@@ -23,10 +23,6 @@ export const sections = [
     lines: ["Telefon: +49 175 5 909 725", "E-Mail: kontakt@xb-mediation.de"],
   },
   {
-    heading: "Umsatzsteuer-Identifikationsnummer",
-    lines: ["[sofern vorhanden – bitte ergänzen gemäß § 27a UStG]"],
-  },
-  {
     heading: "Berufsbezeichnung und berufsrechtliche Regelungen",
     lines: [
       "Mediator nach Abschluss einer vom IMI (International Mediation Institute) zertifizierten Mediationsausbildung",
