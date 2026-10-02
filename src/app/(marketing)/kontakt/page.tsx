@@ -1,15 +1,11 @@
-import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
 import { ContactForm } from "@/components/forms/ContactForm";
 import { Icon } from "@/lib/icons";
 import { site } from "@/content/site";
+import { pageMetadata } from "@/lib/metadata";
 import { formHeading, intro, meta, pageHeading } from "@/content/kontakt";
 
-export const metadata: Metadata = {
-  title: meta.title,
-  description: meta.description,
-  alternates: { canonical: "/kontakt" },
-};
+export const metadata = pageMetadata(meta, "/kontakt");
 
 export default function KontaktPage() {
   return (

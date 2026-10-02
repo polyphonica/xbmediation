@@ -94,4 +94,4 @@ After that, the business owner logs in at `/admin/login` and can change his own 
 
 ## Backlog (not urgent)
 
-- **SEO follow-ups** beyond the JSON-LD already shipped: Open Graph/Twitter card image for link previews.
+- **SEO follow-ups**: `src/app/sitemap.ts` reports the build time as every page's `lastModified`, rather than when that page's content actually changed.

@@ -1,8 +1,8 @@
-import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
 import { Hero } from "@/components/ui/Hero";
 import { Card } from "@/components/ui/Card";
 import { QuoteBanner } from "@/components/ui/QuoteBanner";
+import { pageMetadata } from "@/lib/metadata";
 import {
   backgroundBody,
   backgroundHeading,
@@ -22,11 +22,7 @@ import {
   valueHeading,
 } from "@/content/ueber-mich";
 
-export const metadata: Metadata = {
-  title: meta.title,
-  description: meta.description,
-  alternates: { canonical: "/ueber-mich" },
-};
+export const metadata = pageMetadata(meta, "/ueber-mich");
 
 export default function UeberMichPage() {
   return (

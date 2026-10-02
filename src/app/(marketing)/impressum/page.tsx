@@ -1,12 +1,8 @@
-import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
+import { pageMetadata } from "@/lib/metadata";
 import { meta, sections } from "@/content/impressum";
 
-export const metadata: Metadata = {
-  title: meta.title,
-  description: meta.description,
-  alternates: { canonical: "/impressum" },
-};
+export const metadata = pageMetadata(meta, "/impressum");
 
 export default function ImpressumPage() {
   return (

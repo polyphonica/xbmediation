@@ -1,12 +1,8 @@
-import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
+import { pageMetadata } from "@/lib/metadata";
 import { meta, sections } from "@/content/datenschutz";
 
-export const metadata: Metadata = {
-  title: meta.title,
-  description: meta.description,
-  alternates: { canonical: "/datenschutz" },
-};
+export const metadata = pageMetadata(meta, "/datenschutz");
 
 export default function DatenschutzPage() {
   return (

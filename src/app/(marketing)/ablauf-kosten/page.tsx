@@ -1,8 +1,8 @@
-import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
 import { StepList } from "@/components/ui/StepList";
 import { CTABanner } from "@/components/ui/CTABanner";
 import { Icon } from "@/lib/icons";
+import { pageMetadata } from "@/lib/metadata";
 import {
   cta,
   introBody,
@@ -16,11 +16,7 @@ import {
   steps,
 } from "@/content/ablauf-kosten";
 
-export const metadata: Metadata = {
-  title: meta.title,
-  description: meta.description,
-  alternates: { canonical: "/ablauf-kosten" },
-};
+export const metadata = pageMetadata(meta, "/ablauf-kosten");
 
 export default function AblaufKostenPage() {
   return (

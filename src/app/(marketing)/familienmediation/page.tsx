@@ -1,10 +1,10 @@
-import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
 import { Hero } from "@/components/ui/Hero";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { IconGrid } from "@/components/ui/IconGrid";
 import { CalloutPanel } from "@/components/ui/CalloutPanel";
 import { CTABanner } from "@/components/ui/CTABanner";
+import { pageMetadata } from "@/lib/metadata";
 import {
   callout,
   cta,
@@ -16,11 +16,7 @@ import {
   topicsHeading,
 } from "@/content/familienmediation";
 
-export const metadata: Metadata = {
-  title: meta.title,
-  description: meta.description,
-  alternates: { canonical: "/familienmediation" },
-};
+export const metadata = pageMetadata(meta, "/familienmediation");
 
 export default function FamilienmediationPage() {
   return (

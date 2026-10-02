@@ -1,12 +1,8 @@
-import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
+import { pageMetadata } from "@/lib/metadata";
 import { heading, meta, paragraphs } from "@/content/vsbg";
 
-export const metadata: Metadata = {
-  title: meta.title,
-  description: meta.description,
-  alternates: { canonical: "/streitbeilegung" },
-};
+export const metadata = pageMetadata(meta, "/streitbeilegung");
 
 export default function StreitbeilegungPage() {
   return (

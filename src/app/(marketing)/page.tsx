@@ -1,10 +1,10 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Hero } from "@/components/ui/Hero";
 import { Card } from "@/components/ui/Card";
 import { StepList } from "@/components/ui/StepList";
+import { pageMetadata } from "@/lib/metadata";
 import {
   cards,
   hero,
@@ -14,11 +14,7 @@ import {
   structureSection,
 } from "@/content/home";
 
-export const metadata: Metadata = {
-  title: meta.title,
-  description: meta.description,
-  alternates: { canonical: "/" },
-};
+export const metadata = pageMetadata(meta, "/");
 
 export default function Home() {
   return (
