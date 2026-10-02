@@ -18,6 +18,7 @@ import {
 export const metadata: Metadata = {
   title: meta.title,
   description: meta.description,
+  alternates: { canonical: "/mediation" },
 };
 
 export default function MediationPage() {

@@ -19,6 +19,7 @@ import {
 export const metadata: Metadata = {
   title: meta.title,
   description: meta.description,
+  alternates: { canonical: "/ablauf-kosten" },
 };
 
 export default function AblaufKostenPage() {

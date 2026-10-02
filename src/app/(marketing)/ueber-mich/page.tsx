@@ -25,6 +25,7 @@ import {
 export const metadata: Metadata = {
   title: meta.title,
   description: meta.description,
+  alternates: { canonical: "/ueber-mich" },
 };
 
 export default function UeberMichPage() {

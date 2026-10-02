@@ -5,6 +5,7 @@ import { meta, sections } from "@/content/impressum";
 export const metadata: Metadata = {
   title: meta.title,
   description: meta.description,
+  alternates: { canonical: "/impressum" },
 };
 
 export default function ImpressumPage() {

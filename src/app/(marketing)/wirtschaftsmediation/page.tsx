@@ -19,6 +19,7 @@ import {
 export const metadata: Metadata = {
   title: meta.title,
   description: meta.description,
+  alternates: { canonical: "/wirtschaftsmediation" },
 };
 
 export default function WirtschaftsmediationPage() {

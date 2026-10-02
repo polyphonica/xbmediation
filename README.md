@@ -73,7 +73,7 @@ The app runs directly on a self-managed IONOS VPS (Ubuntu) — no Docker, no man
    sudo cp deploy/xbmediation.service /etc/systemd/system/
    sudo systemctl enable --now xbmediation
    ```
-6. Wire up nginx: `nginx/xbmediation.conf` → `/etc/nginx/sites-available/` → symlink into `sites-enabled` → `nginx -t && systemctl reload nginx`. Then enable HTTPS: `sudo certbot --nginx -d xb-mediation.de -d www.xb-mediation.de`.
+6. Wire up nginx: `nginx/xbmediation.conf` → `/etc/nginx/sites-available/` → symlink into `sites-enabled` → `nginx -t && systemctl reload nginx`. Then enable HTTPS: `sudo certbot --nginx -d xb-mediation.de -d www.xb-mediation.de`. Once that's done, run `sudo deploy/add-www-redirect.sh` so `www.xb-mediation.de` 301-redirects to `https://xb-mediation.de` (the canonical hostname — it matches `NEXT_PUBLIC_SITE_URL`, which the sitemap and each page's `<link rel="canonical">` are built from).
 7. Set the initial `/admin` password (see "Provisioning the admin password" below).
 
 **Subsequent deploys:** run `deploy/deploy.sh` on the VPS (pulls, installs, migrates, rebuilds, restarts the service).
@@ -94,4 +94,4 @@ After that, the business owner logs in at `/admin/login` and can change his own 
 
 ## Backlog (not urgent)
 
-- **SEO follow-ups** beyond the JSON-LD already shipped: Open Graph/Twitter card image for link previews; redirect `www.xb-mediation.de` → `xb-mediation.de` (or vice versa) in nginx so both hostnames don't serve identical content as far as search engines are concerned.
+- **SEO follow-ups** beyond the JSON-LD already shipped: Open Graph/Twitter card image for link previews.

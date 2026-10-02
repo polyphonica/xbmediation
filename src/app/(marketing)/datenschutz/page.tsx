@@ -5,6 +5,7 @@ import { meta, sections } from "@/content/datenschutz";
 export const metadata: Metadata = {
   title: meta.title,
   description: meta.description,
+  alternates: { canonical: "/datenschutz" },
 };
 
 export default function DatenschutzPage() {

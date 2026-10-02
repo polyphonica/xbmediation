@@ -17,6 +17,7 @@ import {
 export const metadata: Metadata = {
   title: meta.title,
   description: meta.description,
+  alternates: { canonical: "/" },
 };
 
 export default function Home() {

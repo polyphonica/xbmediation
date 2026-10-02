@@ -8,6 +8,7 @@ import { formHeading, intro, meta, pageHeading } from "@/content/kontakt";
 export const metadata: Metadata = {
   title: meta.title,
   description: meta.description,
+  alternates: { canonical: "/kontakt" },
 };
 
 export default function KontaktPage() {

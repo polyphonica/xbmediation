@@ -5,6 +5,7 @@ import { heading, meta, paragraphs } from "@/content/vsbg";
 export const metadata: Metadata = {
   title: meta.title,
   description: meta.description,
+  alternates: { canonical: "/streitbeilegung" },
 };
 
 export default function StreitbeilegungPage() {
