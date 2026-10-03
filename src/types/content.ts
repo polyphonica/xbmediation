@@ -27,9 +27,10 @@ export type HeroContent = {
      * it. Defaults to false (cover, as photos want); set true for images
      * (like a logo with text) that must never be cropped. */
     contain?: boolean;
-    /** Marks a portrait photo of a person. Anchors the crop near the top
-     * so the face stays in frame, and gives the desktop hero enough
-     * height that the wide full-bleed frame doesn't cut the head off. */
+    /** Marks a portrait photo of a person. Shown as an upright card next
+     * to the text instead of the wide full-bleed frame (which would crop
+     * it to a slice of the face); any crop is anchored near the top so
+     * the face stays in frame. */
     portrait?: boolean;
   };
 };

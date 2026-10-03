@@ -9,29 +9,23 @@ export function Hero({ content }: { content: HeroContent }) {
   // Contained images (e.g. the home logo) aren't photos and shouldn't be
   // stretched to fill the section — they sit in the grid, sized to match
   // the text column next to them.
-  const bleed = !content.image.contain;
+  // Portraits of a person don't bleed either: an upright photo in the wide
+  // bleed frame gets cropped to a slice of the face, so it sits in the grid
+  // as a card next to the text instead.
+  const portrait = Boolean(content.image.portrait);
+  const bleed = !content.image.contain && !portrait;
 
   return (
     <section
       className={cn(
         "relative overflow-hidden pt-16 pb-20 sm:pt-24 sm:pb-28",
-        // Portrait photo: the bleed frame is 27.2vw wide, so the section
-        // needs roughly 36.3vw of height to show a 3:4 photo uncropped.
-        bleed && content.image.portrait
-          ? "lg:flex lg:min-h-[min(36.3vw,45rem)] lg:items-center"
-          : null,
+        // Portrait card: tighter vertical padding on desktop so the upright
+        // photo doesn't make the hero fill the screen.
+        portrait ? "lg:pt-10 lg:pb-10" : null,
       )}
     >
       {bleed ? (
-        <div
-          className={cn(
-            "pointer-events-none absolute inset-y-0 right-0 hidden lg:block",
-            // Portraits get a narrow, upright frame matching the photo's
-            // own 3:4 shape, so the whole subject shows rather than a
-            // landscape slice of the face.
-            content.image.portrait ? "w-[27.2%]" : "w-[44%]",
-          )}
-        >
+        <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[44%] lg:block">
           <HeroImage image={content.image} bleed />
         </div>
       ) : null}
@@ -42,7 +36,7 @@ export function Hero({ content }: { content: HeroContent }) {
           // Contained image: stretch the row so the image column matches
           // the text column's rendered height (top of heading to bottom
           // of the button), not the section's padded height.
-          bleed ? null : "lg:items-stretch",
+          bleed || portrait ? null : "lg:items-stretch",
         )}
       >
         <div className="animate-fade-up relative lg:self-center">
@@ -81,9 +75,11 @@ export function Hero({ content }: { content: HeroContent }) {
             bleed
               ? // Mobile/tablet only: desktop shows the full-bleed photo instead.
                 "lg:hidden"
-              : // Contained image: sized to match the text column on mobile,
-                // stretched to its full rendered height on desktop.
-                "mx-auto flex w-full max-w-sm items-center justify-center lg:mx-0 lg:h-full lg:max-w-none",
+              : portrait
+                ? null
+                : // Contained image: sized to match the text column on mobile,
+                  // stretched to its full rendered height on desktop.
+                  "mx-auto flex w-full max-w-sm items-center justify-center lg:mx-0 lg:h-full lg:max-w-none",
           )}
           style={{ animationDelay: "120ms" }}
         >
@@ -91,11 +87,13 @@ export function Hero({ content }: { content: HeroContent }) {
             image={content.image}
             className={
               bleed
-                ? // Portraits sit a little smaller and centered on mobile.
-                  content.image.portrait
-                  ? "mx-auto w-[90%]"
-                  : undefined
-                : "lg:aspect-auto lg:h-full lg:max-w-full"
+                ? undefined
+                : portrait
+                  ? // A little smaller and centered on mobile; on desktop a
+                    // fixed-size card at the start of the image column, so
+                    // it sits close to the text.
+                    "mx-auto w-[90%] lg:mx-0 lg:w-[min(20vw,25rem)]"
+                  : "lg:aspect-auto lg:h-full lg:max-w-full"
             }
           />
         </div>
