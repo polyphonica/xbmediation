@@ -15,15 +15,21 @@ export function Hero({ content }: { content: HeroContent }) {
     <section
       className={cn(
         "relative overflow-hidden pt-16 pb-20 sm:pt-24 sm:pb-28",
-        // Portrait photo: the bleed frame is 44vw wide, so the section
-        // needs roughly 35vw of height to fit a face from hair to chin.
+        // Portrait photo: the bleed frame is 35.2vw wide, so the section
+        // needs roughly 28vw of height to fit a face from hair to chin.
         bleed && content.image.portrait
-          ? "lg:flex lg:min-h-[min(35vw,44rem)] lg:items-center"
+          ? "lg:flex lg:min-h-[min(28vw,35.2rem)] lg:items-center"
           : null,
       )}
     >
       {bleed ? (
-        <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[44%] lg:block">
+        <div
+          className={cn(
+            "pointer-events-none absolute inset-y-0 right-0 hidden lg:block",
+            // Portraits get a narrower frame so the face isn't oversized.
+            content.image.portrait ? "w-[35.2%]" : "w-[44%]",
+          )}
+        >
           <HeroImage image={content.image} bleed />
         </div>
       ) : null}
