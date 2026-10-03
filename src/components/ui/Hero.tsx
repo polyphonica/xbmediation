@@ -90,9 +90,9 @@ export function Hero({ content }: { content: HeroContent }) {
                 ? undefined
                 : portrait
                   ? // A little smaller and centered on mobile; on desktop a
-                    // fixed-size card at the start of the image column, so
-                    // it sits close to the text.
-                    "mx-auto w-[90%] lg:mx-0 lg:w-[min(20vw,25rem)]"
+                    // fixed-size card at the end of the image column, so its
+                    // right edge lines up with the content below.
+                    "mx-auto w-[90%] lg:mr-0 lg:w-[min(20vw,25rem)]"
                   : "lg:aspect-auto lg:h-full lg:max-w-full"
             }
           />
