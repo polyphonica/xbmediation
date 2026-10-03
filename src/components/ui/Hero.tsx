@@ -15,10 +15,10 @@ export function Hero({ content }: { content: HeroContent }) {
     <section
       className={cn(
         "relative overflow-hidden pt-16 pb-20 sm:pt-24 sm:pb-28",
-        // Portrait photo: the bleed frame is 35.2vw wide, so the section
-        // needs roughly 28vw of height to fit a face from hair to chin.
+        // Portrait photo: the bleed frame is 27.2vw wide, so the section
+        // needs roughly 36.3vw of height to show a 3:4 photo uncropped.
         bleed && content.image.portrait
-          ? "lg:flex lg:min-h-[min(28vw,35.2rem)] lg:items-center"
+          ? "lg:flex lg:min-h-[min(36.3vw,45rem)] lg:items-center"
           : null,
       )}
     >
@@ -26,8 +26,10 @@ export function Hero({ content }: { content: HeroContent }) {
         <div
           className={cn(
             "pointer-events-none absolute inset-y-0 right-0 hidden lg:block",
-            // Portraits get a narrower frame so the face isn't oversized.
-            content.image.portrait ? "w-[35.2%]" : "w-[44%]",
+            // Portraits get a narrow, upright frame matching the photo's
+            // own 3:4 shape, so the whole subject shows rather than a
+            // landscape slice of the face.
+            content.image.portrait ? "w-[27.2%]" : "w-[44%]",
           )}
         >
           <HeroImage image={content.image} bleed />
@@ -87,7 +89,14 @@ export function Hero({ content }: { content: HeroContent }) {
         >
           <HeroImage
             image={content.image}
-            className={bleed ? undefined : "lg:aspect-auto lg:h-full lg:max-w-full"}
+            className={
+              bleed
+                ? // Portraits sit a little smaller and centered on mobile.
+                  content.image.portrait
+                  ? "mx-auto w-[90%]"
+                  : undefined
+                : "lg:aspect-auto lg:h-full lg:max-w-full"
+            }
           />
         </div>
       </Container>
