@@ -12,7 +12,16 @@ export function Hero({ content }: { content: HeroContent }) {
   const bleed = !content.image.contain;
 
   return (
-    <section className="relative overflow-hidden pt-16 pb-20 sm:pt-24 sm:pb-28">
+    <section
+      className={cn(
+        "relative overflow-hidden pt-16 pb-20 sm:pt-24 sm:pb-28",
+        // Portrait photo: the bleed frame is 44vw wide, so the section
+        // needs roughly 35vw of height to fit a face from hair to chin.
+        bleed && content.image.portrait
+          ? "lg:flex lg:min-h-[min(35vw,44rem)] lg:items-center"
+          : null,
+      )}
+    >
       {bleed ? (
         <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[44%] lg:block">
           <HeroImage image={content.image} bleed />

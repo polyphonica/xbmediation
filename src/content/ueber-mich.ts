@@ -13,6 +13,8 @@ export const hero = {
     "Ich arbeite strukturiert, neutral und empathisch. Mein Ziel ist es, dass sich alle Beteiligten verstanden fühlen und gemeinsam tragfähige Lösungen ermöglichen.",
   image: {
     placeholder: "portrait" as const,
+    src: "/images/portrait-xaver-behl.jpg",
+    portrait: true,
     alt: "Xaver Behl, Mediator bei XB Mediation",
   },
 };

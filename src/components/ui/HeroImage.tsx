@@ -46,7 +46,10 @@ export function HeroImage({
         alt={image.alt}
         fill
         sizes={bleed ? "44vw" : "(min-width: 640px) 50vw, 100vw"}
-        className={image.contain ? "object-contain" : "object-cover"}
+        className={cn(
+          image.contain ? "object-contain" : "object-cover",
+          image.portrait && "object-[50%_10%]",
+        )}
         priority
         unoptimized={image.unoptimized}
       />
